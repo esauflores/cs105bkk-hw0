@@ -3,14 +3,17 @@
 
 def add_item(inventory, item, count=1):
     """Return a new inventory with count more of item. Do not change inventory."""
-    raise NotImplementedError("core: return a new inventory with the item added")
+    new_inventory = inventory.copy()
+    new_inventory[item] = new_inventory.get(item, 0) + count
+    return new_inventory
 
 
 def total_items(*inventories):
     """Return how many items there are in all the inventories together."""
-    raise NotImplementedError("core: add up the items in every inventory")
+    return sum(sum(inventory.values()) for inventory in inventories)
 
 
 def running_low(inventory, limit=2):
     """Return the names of items with fewer than limit left, sorted A to Z."""
-    raise NotImplementedError("core: list the items running low")
+    low_items = [item for item, count in inventory.items() if count < limit]
+    return sorted(low_items)
